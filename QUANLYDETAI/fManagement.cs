@@ -183,10 +183,17 @@ namespace QUANLYDETAI
 
         private void btnAccountMana_Click(object sender, EventArgs e)
         {
-            this.Hide();
-            fAccount f = new fAccount();
-            f.ShowDialog();
-            this.Show();
+            if (role == "p6")
+            {
+                this.Hide();
+                fAccount f = new fAccount();
+                f.ShowDialog();
+                this.Show();
+            }
+            else
+            {
+                MessageBox.Show("Bạn không có quyền truy cập.", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
         }
 
         private void F_Logout(object sender, EventArgs e)
