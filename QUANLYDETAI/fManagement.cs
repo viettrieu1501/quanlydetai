@@ -184,7 +184,7 @@ namespace QUANLYDETAI
         private void btnAccountMana_Click(object sender, EventArgs e)
         {
             this.Hide();
-            fAccount f = new fAccount(role);
+            fAccount f = new fAccount();
             f.ShowDialog();
             this.Show();
         }

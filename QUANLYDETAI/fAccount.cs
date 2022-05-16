@@ -14,11 +14,9 @@ namespace QUANLYDETAI
 {
     public partial class fAccount : Form
     {
-        private string role;
         BindingSource source = new BindingSource();
-        public fAccount(string role)
+        public fAccount()
         {
-            this.role = role;
             InitializeComponent();
             guna2ShadowForm1.SetShadowForm(this);
             LoadFullData();
@@ -39,48 +37,26 @@ namespace QUANLYDETAI
 
         private void btnRemove_Click(object sender, EventArgs e)
         {
-            if (role=="p6")
+            if (MessageBox.Show("Bạn có muốn xóa tài khoản này không?", "Cảnh báo", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
             {
-                if (MessageBox.Show("Bạn có muốn xóa tài khoản này không?", "Cảnh báo", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
-                {
-                    AccountDAO.Instance.deleteAccount(txtUserName.Text);
-                    MessageBox.Show("Xóa thành công?", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    source.DataSource = AccountDAO.Instance.getFullAccount();
-                }
-            }
-            else
-            {
-                MessageBox.Show("Bạn không có quyền truy cập.", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                AccountDAO.Instance.deleteAccount(txtUserName.Text);
+                MessageBox.Show("Xóa thành công?", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                source.DataSource = AccountDAO.Instance.getFullAccount();
             }
         }
 
         private void btnEdit_Click(object sender, EventArgs e)
         {
-
-            if (role=="p6")
-            {
-                fEditAccount f = new fEditAccount(txtUserName.Text);
-                f.CloseForm += F_CloseForm;
-                f.ShowDialog();
-            }
-            else
-            {
-                MessageBox.Show("Bạn không có quyền truy cập.", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-            }
+            fEditAccount f = new fEditAccount(txtUserName.Text);
+            f.CloseForm += F_CloseForm;
+            f.ShowDialog();
         }
 
         private void btnAdd_Click(object sender, EventArgs e)
         {
-            if (role=="p6")
-            {
-                fAddAccount f = new fAddAccount();
-                f.CloseForm += F_CloseForm;
-                f.ShowDialog();
-            }
-            else
-            {
-                MessageBox.Show("Bạn không có quyền truy cập.", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-            }
+            fAddAccount f = new fAddAccount();
+            f.CloseForm += F_CloseForm;
+            f.ShowDialog();
         }
 
         private void F_CloseForm(object sender, EventArgs e)
